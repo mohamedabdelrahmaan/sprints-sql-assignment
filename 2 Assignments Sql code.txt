@@ -1,13 +1,13 @@
 Q2: find the names of the top 10 employees who sold the most orders and order them desc .
 -------------------------------------------------------------------------------------------
-
 select  FirstName ,LastName ,  count(orderid) as number_of_orders 
 from Employees e
-join orders o
+left join orders o
 on o.EmployeeID=e.EmployeeID
 group by FirstName ,LastName
 order by number_of_orders desc 
 limit 10;
+
 
 ----------------------------------------------------------------------------------------------------
 Q3:find top 10 employees names who sold the most quantity of Beravages category and order them desc .
@@ -15,13 +15,13 @@ Q3:find top 10 employees names who sold the most quantity of Beravages category 
 select  FirstName ,LastName ,  sum(quantity) as quantity_of_beverages 
 from Employees e
 join orders o on o.EmployeeID=e.EmployeeID
-join OrderDetails ds on od.OrderId=o.OrderId
-join products p on p.ProductId=od.ProductId
+join OrderDetails ds on ds.OrderId=o.OrderId
+join products p on p.ProductId=ds.ProductId
 join categories c on c.CategoryId=p.CategoryId
 where c.categoryname="Beverages"
 group by e.employeeid,FirstName ,LastName
 order by quantity_of_beverages desc 
 limit 10;
 
-----------------------------------------------------------------------------------------------------
+-------------------------------------------------
 
